@@ -1,103 +1,105 @@
 import Image from "next/image";
+import * as z from "zod/v4";
 
-export default function Home() {
+const User = z.object({
+  email: z.email(),
+  password: z.string(),
+});
+
+type User = z.infer<typeof User>;
+
+const user: User = { email: "", password: "" };
+
+export default function Home({ ...pros }) {
+  const submitForm = async () => {
+    alert("login");
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="bg-sidebar-background flex justify-start item-start">
+      <div className="flex-1 self-stretch p-3 flex justify-start items-start gap-3 overflow-hidden">
+        <div className="flex-1 self-stretch px-20 py-5 relative bg-slate-950 rounded-xl outline outline-1 outline-offset-[-1px] outline-border inline-flex flex-col justify-center items-center overflow-hidden">
+          {/* LOGO */}
+          <div
+            data-type="md"
+            className="left-[-170px] top-[61px] absolute opacity-5"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <Image src="Logo.svg" alt={"Logo"} width={729} height={805} />
+          </div>
+          {/* LOGO END */}
+          <form className="self-stretch flex flex-col justify-start items-start">
+            <div className="self-stretch pb-6 flex flex-col justify-start items-start gap-2">
+              <div className="inline-flex justify-center items-center gap-2">
+                <div className="justify-start text-foreground text-2xl font-medium font-sans leading-loose">
+                  Welcome back to
+                </div>
+                <div className="w-8 h-8 p-2 bg-sidebar-primary rounded-lg flex justify-center items-center">
+                  <div
+                    data-type="sm"
+                    className="w-3.5 h-4 relative overflow-hidden"
+                  >
+                    <Image src="Logo.svg" alt={"Logo"} width={15} height={17} />
+                  </div>
+                </div>
+                <div className="justify-start text-foreground text-2xl font-medium font-sans leading-loose">
+                  DCGx
+                </div>
+              </div>
+              <div className="self-stretch justify-start text-muted-foreground text-sm font-normal font-sans leading-tight">
+                Enter your details below to login to your DCGx account
+              </div>
+            </div>
+            <div className="self-stretch pb-6 flex flex-col justify-start items-start gap-4">
+              <div className="self-stretch flex flex-col justify-start items-start gap-2">
+                <div className="self-stretch inline-flex justify-start items-start gap-2 flex-1 justify-start text-['foreground'] text-sm font-medium font-sans leading-tight">
+                  Email
+                </div>
+                <input
+                  className="self-stretch inline-flex justify-start items-center gap-2 text-foreground text-sm font-normal font-['Poppins'] leading-tight flex-1 px-3 py-2.5 bg-slate-950 rounded-md outline outline-1 outline-offset-[-1px] outline-input flex justify-start items-center"
+                  type="text"
+                />
+              </div>
+              <div className="self-stretch flex flex-col justify-start items-start gap-2">
+                <div className="self-stretch inline-flex justify-start items-start gap-2">
+                  <div className="flex-1 justify-start text-foreground text-sm font-medium font-sans leading-tight">
+                    Password
+                  </div>
+                  <div className="text-center justify-start text-slate-400 text-sm font-light font-sans leading-tight">
+                    Forgot your password?
+                  </div>
+                </div>
+                <input
+                  className="caret-foreground self-stretch inline-flex justify-start items-center gap-2 text-foreground text-sm font-normal font-['Poppins'] leading-tight flex-1 px-3 py-2.5 bg-slate-950 rounded-md outline outline-1 outline-offset-[-1px] outline-input flex justify-start items-center"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div className="self-stretch flex flex-col justify-center items-start gap-2">
+              <div
+                data-destructive="False"
+                data-icon-leading="false"
+                data-icon-trailing="false"
+                data-size="md"
+                data-state="Normal"
+                data-type="Primary"
+                className="self-stretch min-w-20 px-3 py-2 bg-primary rounded-md inline-flex justify-center items-center gap-1 overflow-hidden"
+              >
+                <div className="px-1 flex justify-start items-start justify-start text-primary-foreground text-sm font-normal font-sans leading-normal">
+                  Login
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <Image
+          className="flex-1 self-stretch relative rounded-xl cover"
+          src="Image.svg"
+          alt="Pic"
+          height={600}
+          width={600}
+        />
+      </div>
     </div>
   );
 }

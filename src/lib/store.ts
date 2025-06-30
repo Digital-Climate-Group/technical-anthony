@@ -4,11 +4,14 @@
 // 2. Type definitions for RootState and AppDispatch
 
 import { configureStore } from '@reduxjs/toolkit';
+import authSlice from './authSlice';
 
 // TODO: Create and export the store instance
 export const makeStore = () => {
   return configureStore({
-    reducer: {}, // TODO: Add reducers here when needed
+    reducer: {
+      auth: authSlice
+    }, // TODO: Add reducers here when needed
   });
 };
 
@@ -20,5 +23,5 @@ export const makeStore = () => {
 
 // Remove these example exports when implementing
 export type AppStore = unknown;
-export type RootState = unknown;
-export type AppDispatch = unknown;
+export type RootState = ReturnType<typeof makeStore>;
+export type AppDispatch = typeof makeStore;
